@@ -1,4 +1,5 @@
 #!/bin/bash
+DIRNAME=$(dirname ${BASH_SOURCE[0]})
 
 yum install python-pip -y
 pip install supervisor
@@ -8,7 +9,7 @@ echo_supervisord_conf > /etc/supervisord.conf
 echo "[include]" >> /etc/supervisord.conf
 echo "files = /etc/supervisord/conf.d/*.conf" >> /etc/supervisord.conf
 
-cp supervisord.service /usr/lib/systemd/system/supervisord.service
+cp ${DIRNAME}/supervisord.service /usr/lib/systemd/system/supervisord.service
 
 systemctl start supervisord
 systemctl enable supervisord
