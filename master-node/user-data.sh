@@ -34,7 +34,7 @@ function prepare_newman {
 
 yum update -y
 yum install nano git -y
-pip install supervisor
+../supervisor/install.sh
 amazon-linux-extras install docker -y
 service docker start
 usermod -a -G docker ec2-user
