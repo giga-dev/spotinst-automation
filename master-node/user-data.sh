@@ -2,43 +2,49 @@
 
 
 function prepare_jenkins {
-	
-	mkdir /data/jenkins
 
-	cd /data/jenkins
-
-	git clone https://github.com/Gigaspaces/xap-jenkins.git
-
-	cd xap-jenkins
-
-	git checkout spotinst
-
-	cd jenkins-docker
-
-	./install-deps.sh
+	if [ -e "/data/jenkins/xap-jenkins" ]; then
+		cd /data/jenkins/xap-jenkins
+		git pull
+	else
+		mkdir /data/jenkins
+		cd /data/jenkins
+		git clone https://github.com/Gigaspaces/xap-jenkins.git
+		cd xap-jenkins
+		git checkout spotinst
+		cd jenkins-docker
+		./install-deps.sh
+	fi
 }
 
 function prepare_newman {
-	mkdir /data/newman
+	if [ -e "/data/newman/newman" ]; then
+		cd /data/newman/newman
+		git pull
+	else
+		mkdir /data/newman
+		cd /data/newman
+		git clone https://github.com/giga-dev/newman.git
+		cd newman
+		git checkout spotinst
+		echo "export COMPONENT=server" > /data/newman/env.sh
+	fi
+}
 
-	cd /data/newman
-
-	git clone https://github.com/giga-dev/newman.git
-
-	cd newman
-
-	git checkout spotinst
-
-	echo "export COMPONENT=server" > /data/newman/env.sh
+function install_docker {
+	command -v docker
+	if [ "$?" == "1" ]; then
+		amazon-linux-extras install docker -y
+		service docker start
+		usermod -a -G docker ec2-user
+	fi
 }
 
 yum update -y
-yum install nano git -y
-../supervisor/install.sh
-amazon-linux-extras install docker -y
-service docker start
-usermod -a -G docker ec2-user
+yum install nano -y
 
+install_docker
+../supervisor/install.sh
 
 prepare_jenkins
 prepare_newman
