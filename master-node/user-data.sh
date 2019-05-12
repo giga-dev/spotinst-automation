@@ -1,6 +1,6 @@
 #!/bin/bash
 set -x
-DIRNAME=$(dirname ${BASH_SOURCE[0]})
+DIRNAME=`cd $(dirname ${BASH_SOURCE[0]}) && pwd`
 
 function prepare_jenkins {
 
