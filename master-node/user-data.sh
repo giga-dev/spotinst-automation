@@ -1,27 +1,24 @@
 #!/bin/bash
 
+DIRNAME=$(dirname ${BASH_SOURCE[0]})
 
 function prepare_jenkins {
 
-	if [ -e "/data/jenkins/xap-jenkins" ]; then
-		cd /data/jenkins/xap-jenkins
-		git pull
-	else
+	if [ ! -e "/data/jenkins/xap-jenkins" ]; then
 		mkdir /data/jenkins
 		cd /data/jenkins
 		git clone https://github.com/Gigaspaces/xap-jenkins.git
 		cd xap-jenkins
 		git checkout spotinst
 		cd jenkins-docker
-		./install-deps.sh
+		./build.sh
+
+		cp ${DIRNAME}/../master-node/supervisor_jenkins.conf /etc/supervisord.d/
 	fi
 }
 
 function prepare_newman {
-	if [ -e "/data/newman/newman" ]; then
-		cd /data/newman/newman
-		git pull
-	else
+	if [ ! -e "/data/newman/newman" ]; then
 		mkdir /data/newman
 		cd /data/newman
 		git clone https://github.com/giga-dev/newman.git
