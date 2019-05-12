@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -x
 DIRNAME=$(dirname ${BASH_SOURCE[0]})
 
 function prepare_jenkins {
