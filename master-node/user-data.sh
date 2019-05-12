@@ -14,6 +14,9 @@ function prepare_jenkins {
 		./build.sh
 
 		cp ${DIRNAME}/../master-node/supervisor_jenkins.conf /etc/supervisord.d/
+
+		supervisorctl reread
+		supervisorctl reload
 	fi
 }
 
