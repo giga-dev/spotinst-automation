@@ -2,6 +2,11 @@
 set -x
 DIRNAME=`cd $(dirname ${BASH_SOURCE[0]}) && pwd`
 
+
+function run_command_ec2_user {
+    su - ec2-user -c "$@"
+}
+
 function prepare_jenkins {
 
 	if [ ! -e "/data/jenkins/xap-jenkins" ]; then
@@ -28,7 +33,7 @@ function prepare_newman {
 		cd newman
 		git checkout spotinst
 		cd newman-server/docker
-		./build.sh
+		run_command_ec2_user `pwd`/build.sh
 
 
 		cp ${DIRNAME}/../master-node/supervisor_newman.conf /etc/supervisord.d/
