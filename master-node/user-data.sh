@@ -27,6 +27,15 @@ function prepare_newman {
 		git clone https://github.com/giga-dev/newman.git
 		cd newman
 		git checkout spotinst
+		cd newman-server/docker
+		./build.sh
+
+
+		cp ${DIRNAME}/../master-node/supervisor_newman.conf /etc/supervisord.d/
+
+		supervisorctl reread
+		supervisorctl reload
+
 		echo "export COMPONENT=server" > /data/newman/env.sh
 	fi
 }
