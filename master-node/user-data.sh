@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -xe
 DIRNAME=`cd $(dirname ${BASH_SOURCE[0]}) && pwd`
 
 
@@ -32,7 +32,7 @@ function prepare_newman {
 		git clone https://github.com/giga-dev/newman.git
 		cd newman
 		git checkout spotinst
-		cd newman-server/docker
+		cd docker
 		run_command_ec2_user `pwd`/docker-build.sh
 		run_command_ec2_user `pwd`/server-build.sh
 
@@ -64,4 +64,4 @@ install_docker
 prepare_jenkins
 prepare_newman
 
-reboot
+#reboot

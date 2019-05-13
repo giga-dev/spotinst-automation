@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -xe
 DIRNAME=`cd $(dirname ${BASH_SOURCE[0]}) && pwd`
 
 
