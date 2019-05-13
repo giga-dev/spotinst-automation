@@ -58,7 +58,7 @@ yum update -y
 yum install nano -y
 
 install_docker
-instal_java
+install_java
 ${DIRNAME}/../supervisor/install.sh
 
 chown ec2-user:ec2-user /data
