@@ -23,7 +23,8 @@ function prepare_newman {
         }
         export -f init_newman
         run_command_ec2_user init_newman
-
+        myIP=`hostname -I | awk '{ print $1 }'`
+        echo "${myIP} newman-server" >> /etc/hosts
 		cp ${DIRNAME}/../newman-agent-node/supervisor_newman.conf /etc/supervisord.d/
 
 		supervisorctl reread
