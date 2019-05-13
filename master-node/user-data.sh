@@ -33,7 +33,8 @@ function prepare_newman {
 		cd newman
 		git checkout spotinst
 		cd newman-server/docker
-		run_command_ec2_user `pwd`/build.sh
+		run_command_ec2_user `pwd`/docker-build.sh
+		run_command_ec2_user `pwd`/server-build.sh
 
 
 		cp ${DIRNAME}/../master-node/supervisor_newman.conf /etc/supervisord.d/
