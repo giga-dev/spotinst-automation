@@ -7,24 +7,6 @@ function run_command_ec2_user {
     su - ec2-user -c "$@"
 }
 
-function prepare_jenkins {
-
-	if [ ! -e "/data/jenkins/xap-jenkins" ]; then
-		mkdir /data/jenkins
-		cd /data/jenkins
-		git clone https://github.com/Gigaspaces/xap-jenkins.git
-		cd xap-jenkins
-		git checkout spotinst
-		cd jenkins-docker
-		./build.sh
-
-		cp ${DIRNAME}/../master-node/supervisor_jenkins.conf /etc/supervisord.d/
-
-		supervisorctl reread
-		supervisorctl reload
-	fi
-}
-
 function prepare_newman {
 	if [ ! -e "/data/newman/newman" ]; then
 		mkdir /data/newman
@@ -32,17 +14,15 @@ function prepare_newman {
 		git clone https://github.com/giga-dev/newman.git
 		cd newman
 		git checkout spotinst
-		cd newman-server/docker
+		cd docker
 		run_command_ec2_user `pwd`/docker-build.sh
-		run_command_ec2_user `pwd`/server-build.sh
+		run_command_ec2_user `pwd`/agent-build.sh
 
-
+        echo "export NEWMAN_SERVER_HOST=newman-server" >> ../newman-agent/env.sh
 		cp ${DIRNAME}/../master-node/supervisor_newman.conf /etc/supervisord.d/
 
 		supervisorctl reread
 		supervisorctl reload
-
-        hostnamectl set-hostname newman-server
 	fi
 }
 
@@ -61,7 +41,4 @@ yum install nano -y
 install_docker
 ../supervisor/install.sh
 
-prepare_jenkins
 prepare_newman
-
-reboot
