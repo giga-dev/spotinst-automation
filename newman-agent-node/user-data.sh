@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xe
+set -x
 DIRNAME=`cd $(dirname ${BASH_SOURCE[0]}) && pwd`
 
 
@@ -40,11 +40,26 @@ function install_docker {
 	fi
 }
 
+function install_java {
+    command -v java
+    if [[ "$?" == "1" ]]; then
+        wget http://hercules.gspaces.com/javas/jdk-8u45-linux-x64.tar.gz -O /tmp/jdk-8u45-linux-x64.tar.gz
+        cd /tmp
+        tar -zxvf jdk-8u45-linux-x64.tar.gz
+        mkdir -p /usr/lib/jvm/
+        mv jdk1.8.0_45 /usr/lib/jvm/java-8-oracle
+        echo "PATH=/usr/lib/jvm/java-8-oracle/bin:\$PATH" >> /etc/profile
+        rm -rf /tmp/jdk-8u45-linux-x64.tar.gz
+    fi
+
+}
+
 yum update -y
 yum install nano -y
 
 install_docker
-../supervisor/install.sh
+instal_java
+${DIRNAME}/../supervisor/install.sh
 
 chown ec2-user:ec2-user /data
 prepare_newman
