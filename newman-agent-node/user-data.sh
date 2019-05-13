@@ -18,8 +18,8 @@ function prepare_newman {
 		run_command_ec2_user `pwd`/docker-build.sh
 		run_command_ec2_user `pwd`/agent-build.sh
 
-        echo "export NEWMAN_SERVER_HOST=newman-server" >> ../newman-agent/env.sh
-		cp ${DIRNAME}/../master-node/supervisor_newman.conf /etc/supervisord.d/
+        echo "export NEWMAN_SERVER_HOST=newman-server" >> ../newman-agent/bin/env.sh
+		cp ${DIRNAME}/../newman-agent-node/supervisor_newman.conf /etc/supervisord.d/
 
 		supervisorctl reread
 		supervisorctl reload
