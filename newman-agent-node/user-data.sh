@@ -50,6 +50,7 @@ function install_java {
         mv jdk1.8.0_45 /usr/lib/jvm/java-8-oracle
         echo "PATH=/usr/lib/jvm/java-8-oracle/bin:\$PATH" >> /etc/profile
         rm -rf /tmp/jdk-8u45-linux-x64.tar.gz
+        source /etc/profile
     fi
 
 }
