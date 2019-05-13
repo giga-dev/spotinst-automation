@@ -42,7 +42,7 @@ function prepare_newman {
 		supervisorctl reread
 		supervisorctl reload
 
-        hostnamectl set-hostname newman-server
+        hostnamectl set-hostname automation-master
 	fi
 }
 
