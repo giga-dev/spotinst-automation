@@ -23,6 +23,7 @@ function prepare_newman {
 
         }
         export -f init_newman
+        ${DIRNAME}/install_java.sh
         run_command_ec2_user init_newman
 		cp ${DIRNAME}/../newman-agent-node/supervisor_newman.conf /etc/supervisord.d/
 
