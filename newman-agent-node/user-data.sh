@@ -19,6 +19,7 @@ function prepare_newman {
             `pwd`/docker-build.sh
             `pwd`/agent-build.sh
             echo "export NEWMAN_SERVER_HOST=newman-server" >> ../newman-agent/bin/env.sh
+            echo "export NEWMAN_AGENT_GROUPNAME=\"${NEWMAN_AGENT_GROUPNAME}\"" >> ../newman-agent/bin/env.sh
 
         }
         export -f init_newman
