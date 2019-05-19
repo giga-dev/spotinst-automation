@@ -22,6 +22,6 @@ function install_java {
 
 install_java http://hercules.gspaces.com/javas/jdk-8u45-linux-x64.tar.gz
 
-install_java http://hercules.gspaces.com/javas/jdk-9.0.4_linux-x64_bin.tar.gz
+#install_java http://hercules.gspaces.com/javas/jdk-9.0.4_linux-x64_bin.tar.gz
 
-install_java http://hercules.gspaces.com/javas/openjdk-11.0.1_linux-x64_bin.tar.gz
+#install_java http://hercules.gspaces.com/javas/openjdk-11.0.1_linux-x64_bin.tar.gz
