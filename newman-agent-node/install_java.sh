@@ -1,6 +1,12 @@
 #!/bin/bash
 
 
+function download {
+    local url=$1
+    local target=$2
+
+    wget ${url} -P ${target}
+}
 
 function install_java {
     local javaLocations=/opt
@@ -9,7 +15,7 @@ function install_java {
     local tmpFolder=$(mktemp -d)
 
     pushd ${tmpFolder}
-    wget ${source}
+    download ${source} ${tmpFolder}
     tar -zxvf ${filename}
     rm -rf ${filename}
     mv $(ls) ${javaLocations}/
@@ -20,8 +26,16 @@ function install_java {
     rm -rf ${tmpFolder}
 }
 
-install_java http://hercules.gspaces.com/javas/jdk-8u45-linux-x64.tar.gz
+function setDefaultJava {
+    echo "export PATH=/opt/jdk1.8.0_45/bin:\$PATH" >> /etc/profile
+    source /etc/profile
+}
 
-#install_java http://hercules.gspaces.com/javas/jdk-9.0.4_linux-x64_bin.tar.gz
 
-#install_java http://hercules.gspaces.com/javas/openjdk-11.0.1_linux-x64_bin.tar.gz
+install_java https://${STORAGE_SERVER}/xap-test/test-build-newman/javas/jdk-8u45-linux-x64.tar.gz
+
+install_java https://${STORAGE_SERVER}/xap-test/test-build-newman/javas/jdk-9.0.4_linux-x64_bin.tar.gz
+
+install_java https://${STORAGE_SERVER}/xap-test/test-build-newman/javas/openjdk-11.0.1_linux-x64_bin.tar.gz
+
+setDefaultJava
