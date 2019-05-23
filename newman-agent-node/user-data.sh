@@ -68,6 +68,7 @@ yum update -y
 yum install nano -y
 
 install_docker
+install_maven
 ${DIRNAME}/install_java.sh
 ${DIRNAME}/../supervisor/install.sh
 
