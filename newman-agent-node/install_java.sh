@@ -28,6 +28,7 @@ function install_java {
 
 function setDefaultJava {
     echo "export PATH=/opt/jdk1.8.0_45/bin:\$PATH" >> /etc/profile
+    echo "export JAVA_HOME=/opt/jdk1.8.0_45" >> /etc/profile
     source /etc/profile
 }
 
