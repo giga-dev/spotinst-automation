@@ -32,10 +32,10 @@ function setDefaultJava {
 }
 
 
-install_java https://${STORAGE_SERVER}/xap-test/test-build-newman/javas/jdk-8u45-linux-x64.tar.gz
+install_java https://${STORAGE_SERVER}/javas/jdk-8u45-linux-x64.tar.gz
 
-install_java https://${STORAGE_SERVER}/xap-test/test-build-newman/javas/jdk-9.0.4_linux-x64_bin.tar.gz
+install_java https://${STORAGE_SERVER}/javas/jdk-9.0.4_linux-x64_bin.tar.gz
 
-install_java https://${STORAGE_SERVER}/xap-test/test-build-newman/javas/openjdk-11.0.1_linux-x64_bin.tar.gz
+install_java https://${STORAGE_SERVER}/javas/openjdk-11.0.1_linux-x64_bin.tar.gz
 
 setDefaultJava
