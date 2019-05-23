@@ -41,6 +41,29 @@ function install_docker {
 	fi
 }
 
+function install_maven {
+    command -v mvn
+    if [[ "$?" == "1" ]]; then
+        echo "Installing maven"
+
+        local installDir="/opt/apache-maven-3.3.9"
+        wget --no-verbose -O /tmp/apache-maven-3.3.9.tar.gz \
+            http://archive.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
+
+        # stop building if md5sum does not match
+        echo "516923b3955b6035ba6b0a5b031fbd8b  /tmp/apache-maven-3.3.9.tar.gz" | \
+            md5sum -c
+
+        mkdir -p ${installDir}
+
+        tar xzf /tmp/apache-maven-3.3.9.tar.gz --strip-components=1 \
+            -C ${installDir}
+
+        ln -s ${installDir}/bin/mvn /usr/local/bin
+        rm -f /tmp/apache-maven-3.3.9.tar.gz
+    fi
+}
+
 yum update -y
 yum install nano -y
 
