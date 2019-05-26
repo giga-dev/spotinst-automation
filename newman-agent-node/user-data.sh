@@ -21,7 +21,6 @@ function prepare_newman {
             local envFile=../newman-agent/bin/env.sh
             echo "export NEWMAN_SERVER_HOST=newman-server" >> ${envFile}
             echo "export NEWMAN_AGENT_GROUPNAME=\"${NEWMAN_AGENT_GROUPNAME}\"" >> ${envFile}
-            echo "export NEWMAN_AGENT_HOME=/home/ec2-user/xap-newman-agent" >> ${envFile}
         }
         export -f init_newman
         run_command_ec2_user init_newman
