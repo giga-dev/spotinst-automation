@@ -7,8 +7,7 @@ if [ ! -e "/etc/supervisord/" ]; then
 
 	mkdir -p /etc/supervisord.d
 	cp ${DIRNAME}/supervisord.conf /etc/supervisord.conf
-	echo "[include]" >> /etc/supervisord.conf
-	echo "files = /etc/supervisord.d/*.conf" >> /etc/supervisord.conf
+
 
 	cp ${DIRNAME}/supervisord.service /usr/lib/systemd/system/supervisord.service
 
