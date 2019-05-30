@@ -21,13 +21,21 @@ function prepare_jenkins {
 		}
 
 		export -f init_jenkins
-		run_command_ec2_user init_jenkins
+    else
+         function init_jenkins {
+            cd /data/jenkins/xap-jenkins/jenkins-docker
+            ./build.sh
+		}
+		export -f init_jenkins
+    fi
 
-		cp ${DIRNAME}/../master-node/supervisor_jenkins.conf /etc/supervisord.d/
+    run_command_ec2_user init_jenkins
 
-		supervisorctl reread
-		supervisorctl reload
-	fi
+	cp ${DIRNAME}/../master-node/supervisor_jenkins.conf /etc/supervisord.d/
+
+	supervisorctl reread
+	supervisorctl reload
+
 }
 
 function prepare_newman {
@@ -44,13 +52,19 @@ function prepare_newman {
             `pwd`/server-build.sh
         }
         export -f init_newman
-        run_command_ec2_user init_newman
-
-		cp ${DIRNAME}/../master-node/supervisor_newman.conf /etc/supervisord.d/
-
-		supervisorctl reread
-		supervisorctl reload
+    else
+        function init_newman {
+            cd /data/newman/newman/docker
+            `pwd`/docker-build.sh
+        }
+        export -f init_newman
 	fi
+
+    run_command_ec2_user init_newman
+	cp ${DIRNAME}/../master-node/supervisor_newman.conf /etc/supervisord.d/
+
+	supervisorctl reread
+	supervisorctl reload
 }
 
 function install_docker {
