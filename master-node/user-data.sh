@@ -45,9 +45,7 @@ function prepare_newman {
             mkdir /data/newman
             cd /data/newman
             git clone https://github.com/giga-dev/newman.git
-            cd newman
-            git checkout spotinst
-            cd docker
+            cd newman/docker
             `pwd`/docker-build.sh
             `pwd`/server-build.sh
         }
