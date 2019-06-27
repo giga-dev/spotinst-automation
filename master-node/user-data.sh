@@ -31,7 +31,7 @@ function prepare_jenkins {
 
     run_command_ec2_user init_jenkins
 
-	cp ${DIRNAME}/../master-node/supervisor_jenkins.conf /etc/supervisord.d/
+	cp ${DIRNAME}/supervisor_jenkins.conf /etc/supervisord.d/
 
 	supervisorctl reread
 	supervisorctl reload
@@ -59,7 +59,7 @@ function prepare_newman {
 	fi
 
     run_command_ec2_user init_newman
-	cp ${DIRNAME}/../master-node/supervisor_newman.conf /etc/supervisord.d/
+	cp ${DIRNAME}/supervisor_newman.conf /etc/supervisord.d/
 
 	supervisorctl reread
 	supervisorctl reload
@@ -75,11 +75,20 @@ function install_docker {
 	fi
 }
 
+function install_shutdown_handler {
+    cp ${DIRNAME}/spot-termination-handler.sh /etc/supervisord.d/
+    cp ${DIRNAME}/supervisor_spot.conf /etc/supervisord.d/
+
+	supervisorctl reread
+	supervisorctl reload
+}
+
 yum update -y
 yum install nano -y
 
 install_docker
 ../supervisor/install.sh
+install_shutdown_handler
 
 chown ec2-user:ec2-user /data
 prepare_jenkins
