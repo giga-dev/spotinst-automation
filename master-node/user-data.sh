@@ -15,7 +15,6 @@ function prepare_jenkins {
             cd /data/jenkins
             git clone https://github.com/Gigaspaces/xap-jenkins.git
             cd xap-jenkins
-            git checkout spotinst
             cd jenkins-docker
             ./build.sh
 		}
