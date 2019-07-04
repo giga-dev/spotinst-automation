@@ -3,6 +3,11 @@ set -x
 DIRNAME=`cd $(dirname ${BASH_SOURCE[0]}) && pwd`
 
 
+TAG_NAME="Name"
+INSTANCE_ID="`wget -qO- http://instance-data/latest/meta-data/instance-id`"
+REGION="`wget -qO- http://instance-data/latest/meta-data/placement/availability-zone | sed -e 's:\([0-9][0-9]*\)[a-z]*\$:\\1:'`"
+NEWMAN_AGENT_GROUPNAME="`aws ec2 describe-tags --filters "Name=resource-id,Values=$INSTANCE_ID" "Name=key,Values=$TAG_NAME" --region $REGION --output=text | cut -f5`"
+
 function run_command_ec2_user {
     su ec2-user -c "$@"
 }
