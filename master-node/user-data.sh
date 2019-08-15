@@ -93,5 +93,7 @@ chown ec2-user:ec2-user /data
 prepare_jenkins
 prepare_newman
 
-hostnamectl set-hostname automation-master
+hostnamectl set-hostname groot
+yes | cp ${DIRNAME}/loginmsg /etc/motd
+
 #reboot
