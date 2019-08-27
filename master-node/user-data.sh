@@ -94,6 +94,8 @@ prepare_jenkins
 prepare_newman
 
 hostnamectl set-hostname groot
-yes | cp ${DIRNAME}/loginmsg /etc/motd
+
+rm -f /etc/motd
+cp ${DIRNAME}/loginmsg /etc/motd
 
 #reboot
