@@ -26,7 +26,8 @@ function prepare_newman {
             local envFile=../newman-agent/bin/env.sh
             echo "export NEWMAN_SERVER_HOST=newman-server" >> ${envFile}
             echo "export NEWMAN_AGENT_GROUPNAME=\"${NEWMAN_AGENT_GROUPNAME}\"" >> ${envFile}
-        }
+	    echo "export NEWMAN_AGENT_CAPABILITIES=\"DOCKER,LINUX,MVN\"" >> ${envFile}
+	}
         export -f init_newman
         run_command_ec2_user init_newman
 		cp ${DIRNAME}/../newman-agent-node/supervisor_newman.conf /etc/supervisord.d/
