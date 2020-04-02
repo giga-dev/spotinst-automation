@@ -5,7 +5,6 @@ function logger {
 }
 
 logger "Starting monitoring for spot termination"
-aws configure set region us-east-2
 
 while true; do
     res=$(curl -Is http://169.254.169.254/latest/meta-data/spot/instance-action)

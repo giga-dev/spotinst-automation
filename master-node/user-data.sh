@@ -1,7 +1,12 @@
 #!/bin/bash
 set -x
 DIRNAME=`cd $(dirname ${BASH_SOURCE[0]}) && pwd`
+GROOT_MAIL_SUBJECT="Groot instance has started $(date +'%Y-%m-%d %H:%M:%S')"
+STARTTIME=$(date +%s)
 
+aws configure set region us-east-2
+
+aws sns publish --message="Groot instance has started, running user-data.sh script" --topic-arn "arn:aws:sns:us-east-2:573366771204:Spotinst-instances" --subject "${GROOT_MAIL_SUBJECT}"
 
 function run_command_ec2_user {
     su ec2-user -c "$@"
@@ -98,4 +103,7 @@ hostnamectl set-hostname groot
 rm -f /etc/motd
 cp ${DIRNAME}/loginmsg /etc/motd
 
+ENDTIME=$(date +%s)
+echo "user-data took $(($ENDTIME - $STARTTIME)) to be completed..."
+aws sns publish --message="user-data.sh script has finished, system is up and running, took $(($ENDTIME - $STARTTIME))" --topic-arn "arn:aws:sns:us-east-2:573366771204:Spotinst-instances" --subject "${GROOT_MAIL_SUBJECT}"
 #reboot
