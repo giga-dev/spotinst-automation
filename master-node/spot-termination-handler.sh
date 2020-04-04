@@ -5,6 +5,7 @@ function logger {
 }
 
 logger "Starting monitoring for spot termination"
+aws configure set region us-east-2
 
 while true; do
     res=$(curl -Is http://169.254.169.254/latest/meta-data/spot/instance-action)
@@ -12,6 +13,7 @@ while true; do
         logger "Detected shutdown event for the instance, running shutdown hook"
         logger "Message was: $res"
 	aws sns publish --message="Detected shutdown event for the instance, running shutdown hook. Message was: $res" --topic-arn "arn:aws:sns:us-east-2:573366771204:Spotinst-instances" --subject "Groot is going down $(date +'%Y-%m-%d %H:%M:%S')"
+        logger "Email was sent"
         sleep 1m
         supervisorctl stop all
         docker stop $(docker ps -aq)
