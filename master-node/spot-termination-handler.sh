@@ -15,11 +15,13 @@ while true; do
 	aws sns publish --message="Detected shutdown event for the instance, running shutdown hook. Message was: $res" --topic-arn "arn:aws:sns:us-east-2:573366771204:Spotinst-instances" --subject "Groot is going down $(date +'%Y-%m-%d %H:%M:%S')"
         logger "Email was sent"
         sleep 1m
-        supervisorctl stop all
+	#Stop every supervisor service except the spot_termination_handler (otherwise it won't be able to detect a false alarm"
+        supervisorctl stop $(supervisorctl status | grep -v "spot_termination_handler" | awk '{ print $1 }')
         docker stop $(docker ps -aq)
         logger "Shutdown was completed"
         sleep 20m
         logger "Apparently it was a false alarm, restarting all services"
+	aws sns publish --message="Spot wasn't terminated within 20 mins, apparently a false alarm. Restarting all services.." --topic-arn "arn:aws:sns:us-east-2:573366771204:Spotinst-instances" --subject "Groot is going down $(date +'%Y-%m-%d %H:%M:%S')"
         supervisorctl start all
         sleep 1m
     else
