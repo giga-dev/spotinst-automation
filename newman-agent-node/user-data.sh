@@ -78,5 +78,7 @@ install_maven
 ${DIRNAME}/install_java.sh
 ${DIRNAME}/../supervisor/install.sh
 
+timedatectl set-timezone Asia/Jerusalem
+
 chown ec2-user:ec2-user /data
 prepare_newman
