@@ -89,7 +89,7 @@ function install_shutdown_handler {
 
 function install_java {
 	command -v java
-	if [[ "$?" == "1" ];; then
+	if [[ "$?" == "1" ]]; then
 		yum install java-1.8.0-openjdk-devel -y
 	fi
 }
