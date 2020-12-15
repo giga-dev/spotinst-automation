@@ -33,7 +33,7 @@ function prepare_jenkins {
 		export -f init_jenkins
     fi
 
-    run_command_ec2_user init_jenkins
+	run_command_ec2_user init_jenkins
 
 	cp ${DIRNAME}/supervisor_jenkins.conf /etc/supervisord.d/
 
@@ -107,6 +107,7 @@ prepare_jenkins
 prepare_newman
 
 hostnamectl set-hostname groot
+timedatectl set-timezone Asia/Jerusalem
 
 rm -f /etc/motd
 cp ${DIRNAME}/loginmsg /etc/motd
