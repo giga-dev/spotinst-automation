@@ -62,7 +62,7 @@ function prepare_newman {
         export -f init_newman
 	fi
 
-    run_command_ec2_user init_newman
+        run_command_ec2_user init_newman
 	cp ${DIRNAME}/supervisor_newman.conf /etc/supervisord.d/
 
 	supervisorctl reread
@@ -87,12 +87,20 @@ function install_shutdown_handler {
 	supervisorctl reload
 }
 
+function install_java {
+	command -v java
+	if [[ "$?" == "1" ];; then
+		yum install java-1.8.0-openjdk-devel -y
+	fi
+}
+
 yum update -y
 yum install nano -y
 
 install_docker
 ../supervisor/install.sh
 install_shutdown_handler
+install_java
 
 chown ec2-user:ec2-user /data
 prepare_jenkins
