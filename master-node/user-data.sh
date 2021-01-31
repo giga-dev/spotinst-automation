@@ -37,9 +37,6 @@ function prepare_jenkins {
 
 	cp ${DIRNAME}/supervisor_jenkins.conf /etc/supervisord.d/
 
-	supervisorctl reread
-	supervisorctl reload
-
 }
 
 function prepare_newman {
@@ -62,11 +59,8 @@ function prepare_newman {
         export -f init_newman
 	fi
 
-        run_command_ec2_user init_newman
+  run_command_ec2_user init_newman
 	cp ${DIRNAME}/supervisor_newman.conf /etc/supervisord.d/
-
-	supervisorctl reread
-	supervisorctl reload
 }
 
 function install_docker {
@@ -82,9 +76,6 @@ function install_docker {
 function install_shutdown_handler {
     cp ${DIRNAME}/spot-termination-handler.sh /etc/supervisord.d/
     cp ${DIRNAME}/supervisor_spot.conf /etc/supervisord.d/
-
-	supervisorctl reread
-	supervisorctl reload
 }
 
 function install_java {
@@ -92,6 +83,10 @@ function install_java {
 	if [[ "$?" == "1" ]]; then
 		yum install java-1.8.0-openjdk-devel -y
 	fi
+}
+
+function prepare_metrics {
+    ${DIRNAME}/metrics/init.sh
 }
 
 yum update -y
@@ -105,6 +100,10 @@ install_java
 chown ec2-user:ec2-user /data
 prepare_jenkins
 prepare_newman
+prepare_metrics
+
+supervisorctl reread
+supervisorctl reload
 
 hostnamectl set-hostname groot
 timedatectl set-timezone Asia/Jerusalem
