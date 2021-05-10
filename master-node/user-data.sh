@@ -111,7 +111,18 @@ timedatectl set-timezone Asia/Jerusalem
 rm -f /etc/motd
 cp ${DIRNAME}/loginmsg /etc/motd
 
+
+
+(
+  cd ${DIRNAME}/certbot
+  ./install.sh
+)
+
 ENDTIME=$(date +%s)
 echo "user-data took $(($ENDTIME - $STARTTIME)) seconds to be completed..."
 aws sns publish --message="user-data.sh script has finished, system is up and running, took $(($ENDTIME - $STARTTIME)) seconds to complete" --topic-arn "arn:aws:sns:us-east-2:573366771204:Spotinst-instances" --subject "${GROOT_MAIL_SUBJECT}"
 #reboot
+
+
+
+
