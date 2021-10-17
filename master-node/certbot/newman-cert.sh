@@ -12,3 +12,5 @@ fi
   chmod a+r ${KEYS_PATH}/keystore.p12
   chown -R ec2-user:ec2-user /data/newman/newman/newman-server/certs
 )
+
+supervisorctl restart newmanserver
