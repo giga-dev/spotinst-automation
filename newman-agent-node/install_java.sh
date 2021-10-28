@@ -39,4 +39,6 @@ install_java https://${STORAGE_SERVER}/javas/jdk-9.0.4_linux-x64_bin.tar.gz
 
 install_java https://${STORAGE_SERVER}/javas/openjdk-11.0.1_linux-x64_bin.tar.gz
 
+install_java https://${STORAGE_SERVER}/javas/openjdk-17.0.1_linux-x64_bin.tar.gz
+
 setDefaultJava
