@@ -16,7 +16,7 @@ function install_java {
 
     pushd ${tmpFolder}
     download ${source} ${tmpFolder}
-    tar -zxvf ${filename}
+    tar xfvz ${filename}
     rm -rf ${filename}
     sudo mv $(ls) ${javaLocations}/
 
