@@ -14,6 +14,7 @@ function install_java {
     local filename=$(basename ${source})
     local tmpFolder=$(mktemp -d)
 
+    sudo mkdir -p ${javaLocations}
     pushd ${tmpFolder}
     download ${source} ${tmpFolder}
     tar xfvz ${filename}
