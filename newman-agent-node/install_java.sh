@@ -27,11 +27,10 @@ function install_java {
 }
 
 function setDefaultJava {
-    echo "export PATH=/opt/jdk1.8.0_45/bin:\$PATH" >> /etc/profile
-    echo "export JAVA_HOME=/opt/jdk1.8.0_45" >> /etc/profile
+    echo "export PATH=/usr/java/jdk1.8.0_45/bin:\$PATH" >> /etc/profile
+    echo "export JAVA_HOME=/usr/java/jdk1.8.0_45" >> /etc/profile
     source /etc/profile
 }
-
 
 install_java https://${STORAGE_SERVER}/javas/jdk-8u45-linux-x64.tar.gz
 
