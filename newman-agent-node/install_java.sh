@@ -9,7 +9,7 @@ function download {
 }
 
 function install_java {
-    local javaLocations=/opt
+    local javaLocations=/usr/java
     local source=$1
     local filename=$(basename ${source})
     local tmpFolder=$(mktemp -d)
