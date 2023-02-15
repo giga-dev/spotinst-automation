@@ -18,7 +18,7 @@ function install_java {
     download ${source} ${tmpFolder}
     tar -zxvf ${filename}
     rm -rf ${filename}
-    mv $(ls) ${javaLocations}/
+    sudo mv $(ls) ${javaLocations}/
 
     ls -1 ${javaLocations}
     popd
@@ -27,8 +27,8 @@ function install_java {
 }
 
 function setDefaultJava {
-    echo "export PATH=/usr/java/jdk1.8.0_45/bin:\$PATH" >> /etc/profile
-    echo "export JAVA_HOME=/usr/java/jdk1.8.0_45" >> /etc/profile
+    echo "export PATH=/usr/java/jdk1.8.0_45/bin:\$PATH" | sudo tee -a /etc/profile
+    echo "export JAVA_HOME=/usr/java/jdk1.8.0_45" | sudo tee -a /etc/profile
     source /etc/profile
 }
 
