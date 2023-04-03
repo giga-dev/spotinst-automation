@@ -1,5 +1,6 @@
 #!/bin/bash
 
+STORAGE_SERVER="gs-storage-server.s3.amazonaws.com"
 
 function download {
     local url=$1
@@ -33,12 +34,12 @@ function setDefaultJava {
     source /etc/profile
 }
 
-install_java https://${STORAGE_SERVER}/javas/jdk-8u45-linux-x64.tar.gz
+install_java https://${STORAGE_SERVER}/jdk/jdk-8u45-linux-x64.tar.gz
 
-install_java https://${STORAGE_SERVER}/javas/jdk-9.0.4_linux-x64_bin.tar.gz
+install_java https://${STORAGE_SERVER}/jdk/jdk-9.0.4_linux-x64_bin.tar.gz
 
-install_java https://${STORAGE_SERVER}/javas/openjdk-11.0.1_linux-x64_bin.tar.gz
+install_java https://${STORAGE_SERVER}/jdk/openjdk-11_28_linux-x64_bin.tar.gz
 
-install_java https://${STORAGE_SERVER}/javas/openjdk-17.0.1_linux-x64_bin.tar.gz
+install_java https://${STORAGE_SERVER}/jdk/openjdk-17_35_linux-x64_bin.tar.gz
 
 setDefaultJava
